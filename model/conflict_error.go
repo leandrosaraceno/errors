@@ -3,9 +3,9 @@ package model
 import "net/http"
 
 type ConflictError struct {
-	*GenericError
+	genericError
 }
 
 func NewConflictError(msg string) error {
-	return &ConflictError{&GenericError{Msg: msg, StatusCode: http.StatusConflict}}
+	return ConflictError{genericError{Msg: msg, StatusCode: http.StatusConflict}}
 }

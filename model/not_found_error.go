@@ -3,9 +3,9 @@ package model
 import "net/http"
 
 type NotFoundError struct {
-	GenericError
+	genericError
 }
 
 func NewNotFoundError(msg string) error {
-	return &NotFoundError{GenericError{Msg: msg, StatusCode: http.StatusNotFound}}
+	return NotFoundError{genericError{Msg: msg, StatusCode: http.StatusNotFound}}
 }
