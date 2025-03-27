@@ -12,7 +12,7 @@ import (
 )
 
 func HandlerHttpError(c *fiber.Ctx, err error) error {
-	var gErr model.GenericError
+	var gErr *model.GenericError
 	if errors.As(err, &gErr) {
 		log.Error("HTTP Error<", strconv.Itoa(gErr.StatusCode), "> ", "Reason: ", err.Error())
 		return c.Status(gErr.StatusCode).JSON(response.ReturnError(err.Error()))
