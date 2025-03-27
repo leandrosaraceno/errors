@@ -7,5 +7,5 @@ type InternalServerError struct {
 }
 
 func NewInternalServerError(msg string) error {
-	return InternalServerError{GenericError{Msg: msg, StatusCode: http.StatusInternalServerError}}
+	return &InternalServerError{GenericError{Msg: msg, StatusCode: http.StatusInternalServerError}}
 }

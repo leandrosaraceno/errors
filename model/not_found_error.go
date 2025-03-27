@@ -1,14 +1,11 @@
 package model
 
+import "net/http"
+
 type NotFoundError struct {
-	Msg        string
-	StatusCode int
+	GenericError
 }
 
 func NewNotFoundError(msg string) error {
-	return NotFoundError{Msg: msg}
-}
-
-func (e NotFoundError) Error() string {
-	return e.Msg
+	return &NotFoundError{GenericError{Msg: msg, StatusCode: http.StatusNotFound}}
 }

@@ -7,5 +7,5 @@ type BadRequestError struct {
 }
 
 func NewBadRequestError(msg string) error {
-	return BadRequestError{GenericError{Msg: msg, StatusCode: http.StatusBadRequest}}
+	return &BadRequestError{GenericError{Msg: msg, StatusCode: http.StatusBadRequest}}
 }

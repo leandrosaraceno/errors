@@ -1,14 +1,11 @@
 package model
 
+import "net/http"
+
 type UnauthorizedError struct {
-	Msg        string
-	StatusCode int
+	GenericError
 }
 
 func NewUnauthorizedError(msg string) error {
-	return UnauthorizedError{Msg: msg}
-}
-
-func (e UnauthorizedError) Error() string {
-	return e.Msg
+	return &UnauthorizedError{GenericError{Msg: msg, StatusCode: http.StatusUnauthorized}}
 }
