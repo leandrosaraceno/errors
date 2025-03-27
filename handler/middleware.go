@@ -2,9 +2,7 @@ package handler
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/leandrosaraceno/errors/constants"
-	"github.com/leandrosaraceno/errors/httperrors"
-	"github.com/leandrosaraceno/errors/model"
+	"github.com/leandrosaraceno/errors/handler/httperrors"
 )
 
 func Middleware() fiber.Handler {
@@ -14,29 +12,10 @@ func Middleware() fiber.Handler {
 			return nil
 		}
 
-		// fiber error
-		if fiberErr, ok := err.(*fiber.Error); ok {
-			return c.Status(fiberErr.Code).JSON(model.CustomError{
-				StatusCode: fiberErr.Code,
-				LogMessage: fiberErr.Message,
-			})
-		}
-
 		// database error
-		if dbErr := HandleDatabaseError(err); dbErr != nil {
-			return c.Status(dbErr.StatusCode).JSON(dbErr)
-		}
+		err = HandleDatabaseError(err)
 
-		if dbErr := HandleDatabaseError(err); dbErr != nil {
-			return c.Status(dbErr.StatusCode).JSON(dbErr)
-		}
+		return httperrors.HandlerHttpError(c, err)
 
-		return httperrors.Handler(c, err)
-
-		return c.Status(fiber.StatusInternalServerError).JSON(model.CustomError{
-			StatusCode: fiber.StatusInternalServerError,
-			LogMessage: err.Error(),
-			Key:        constants.InternalServerError,
-		})
 	}
 }

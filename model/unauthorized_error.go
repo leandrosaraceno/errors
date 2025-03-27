@@ -1,7 +1,8 @@
-package httperrors
+package model
 
 type UnauthorizedError struct {
-	Msg string
+	Msg        string
+	StatusCode int
 }
 
 func NewUnauthorizedError(msg string) error {

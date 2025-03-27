@@ -1,7 +1,8 @@
-package httperrors
+package model
 
 type NotFoundError struct {
-	Msg string
+	Msg        string
+	StatusCode int
 }
 
 func NewNotFoundError(msg string) error {
