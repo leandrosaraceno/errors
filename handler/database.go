@@ -8,6 +8,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
+// HandleDatabaseError database error handler
 func HandleDatabaseError(err error) error {
 	var pqErr *pq.Error
 	if errors.As(err, &pqErr) {
